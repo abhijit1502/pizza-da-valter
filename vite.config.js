@@ -1,31 +1,28 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server:{
+  
+  server: {
     proxy: {
       // Proxy setup
       '/api': {
         target: 'https://currencyexchangesoftware.eu/pilot',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
+        rewrite: (path) => path.replace(/^\/api/, ''), // Fixing the rewrite
       },
-      // Add more proxy rules if needed
     },
   },
+
   base: '/',
-   // ...other configurations
-   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
+
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
 
   build: {
     sourcemap: false,
-     rollupOptions: {
-      // External dependencies that should not be bundled
-      external: ['jquery'],
-
-      // Globals for external dependencies (if needed)
+    rollupOptions: {
+      external: ['jquery'], // Keeping jQuery external if used via CDN
       output: {
         globals: {
           jquery: 'jQuery',
@@ -35,9 +32,7 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    exclude: ['jquery'], // Exclude jQuery from optimization
+    include: ['react-router-dom', 'react-helmet-async'], // Ensure essential dependencies are included
+    exclude: ['jquery'], // Exclude jQuery if not bundled
   },
-  
-  
-
-})
+});
