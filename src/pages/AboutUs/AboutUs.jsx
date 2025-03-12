@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import AboutusSeo from "../../seo/AboutusSeo";
 import Loading from "../../components/Loading";
 import { Link, NavLink } from "react-router-dom";
 import Testimonial from "./Testimonial";
+import AboutUsSeo from "../../seo/AboutusSeo";
 function AboutUs() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,7 +16,7 @@ function AboutUs() {
   }, []);
   return (
     <>
-      <AboutusSeo />
+      <AboutUsSeo />
       {isLoading ? (
         <Loading />
       ) : (
