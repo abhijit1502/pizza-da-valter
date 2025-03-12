@@ -58,6 +58,10 @@ const Header = () => {
   }`;
   return (
     <>
+      {/* Back To Top Start */}
+      <button id="back-top" className="back-to-top">
+        <i className="fa-regular fa-arrow-up" />
+      </button>
       {/* Offcanvas Area Start */}
       <div className="fix-area">
         <div className="offcanvas__info">
@@ -65,7 +69,7 @@ const Header = () => {
             <div className="offcanvas__content">
               <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                 <div className="offcanvas__logo">
-                   <NavLink to="/">
+                  <NavLink to="/">
                     <img src="assets/img/logo/logo.png" alt="logo-img" />
                   </NavLink>
                 </div>
@@ -94,7 +98,7 @@ const Header = () => {
                       <i className="fal fa-envelope" />
                     </div>
                     <div className="offcanvas__contact-text">
-                       <NavLink to="tel:+013-003-003-9993">
+                      <NavLink to="tel:+013-003-003-9993">
                         <span className="mailto:info@enofik.com">
                           info@fresheat.com
                         </span>
@@ -116,12 +120,12 @@ const Header = () => {
                       <i className="far fa-phone" />
                     </div>
                     <div className="offcanvas__contact-text">
-                       <NavLink to="tel:+11002345909">+11002345909</NavLink>
+                      <NavLink to="tel:+11002345909">+11002345909</NavLink>
                     </div>
                   </li>
                 </ul>
                 <div className="header-button mt-4">
-                   <NavLink to="shop.html" className="theme-btn">
+                  <NavLink to="shop.html" className="theme-btn">
                     <span className="button-content-wrapper d-flex align-items-center justify-content-center">
                       <span className="button-icon">
                         <i className="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2" />
@@ -131,16 +135,16 @@ const Header = () => {
                   </NavLink>
                 </div>
                 <div className="social-icon d-flex align-items-center">
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-facebook-f" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-twitter" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-youtube" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-linkedin-in" />
                   </NavLink>
                 </div>
@@ -157,24 +161,24 @@ const Header = () => {
         <div className="container-fluid">
           <div className="main-header-wrapper">
             <div className="logo-image">
-               <NavLink to="/">
+              <NavLink to="/">
                 <img src="assets/img/logo/logo.png" alt="img" />
               </NavLink>
             </div>
             <div className="main-header-items">
-              <div className="header-top-wrapper">                
+              <div className="header-top-wrapper">
                 <div className="social-icon d-flex align-items-center">
                   <span>Follow Us:</span>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-facebook-f" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-twitter" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-youtube" />
                   </NavLink>
-                   <NavLink to="#">
+                  <NavLink to="#">
                     <i className="fab fa-linkedin-in" />
                   </NavLink>
                 </div>
@@ -183,7 +187,7 @@ const Header = () => {
                 <div className="mega-menu-wrapper">
                   <div className="header-main">
                     <div className="logo">
-                       <NavLink to="/" className="header-logo">
+                      <NavLink to="/" className="header-logo">
                         <img src="assets/img/logo/logo.png" alt="logo-img" />
                       </NavLink>
                     </div>
@@ -193,41 +197,33 @@ const Header = () => {
                           <nav id="mobile-menu" className="d-none d-sm-block">
                             <ul>
                               <li className="active menu-thumb">
-                                 <NavLink to="/">
-                                  Home
-                                </NavLink>
+                                <NavLink to="/">Home</NavLink>
                               </li>
                               <li className="active menu-thumb">
-                                 <NavLink to="/">
-                                  About Us
-                                </NavLink>
+                                <NavLink to="/">About Us</NavLink>
                               </li>
                               <li className="has-dropdown">
-                                 <NavLink to="/">
-                                 Menu
+                                <NavLink to="/">
+                                  Menu
                                   <i className="fa-regular fa-plus" />
                                 </NavLink>
                                 <ul className="submenu">
                                   <li>
-                                     <NavLink to="/">Drinks</NavLink>
+                                    <NavLink to="/">Drinks</NavLink>
                                   </li>
                                   <li>
-                                     <NavLink to="/">Foods</NavLink>
+                                    <NavLink to="/">Foods</NavLink>
                                   </li>
                                   <li>
-                                     <NavLink to="/">Desserts</NavLink>
+                                    <NavLink to="/">Desserts</NavLink>
                                   </li>
                                 </ul>
                               </li>
                               <li className="active menu-thumb">
-                                <NavLink to="/">
-                                  Blogs
-                                </NavLink>
+                                <NavLink to="/">Blogs</NavLink>
                               </li>
                               <li className="active menu-thumb">
-                                 <NavLink to="/">
-                                  Conatct Us
-                                </NavLink>
+                                <NavLink to="/">Conatct Us</NavLink>
                               </li>
                             </ul>
                           </nav>

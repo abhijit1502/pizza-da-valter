@@ -32,7 +32,8 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    include: ['react-router-dom', 'react-helmet-async'], // Ensure essential dependencies are included
-    exclude: ['jquery'], // Exclude jQuery if not bundled
+    include: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'], 
+    exclude: ['jquery'],
   },
+  
 });
