@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import HomeSeo from "../../seo/HomeSeo";
+import AboutusSeo from "../../seo/AboutusSeo";
 import Loading from "../../components/Loading";
 import { Link, NavLink } from "react-router-dom";
-import Banner from "./Banner";
 import Testimonial from "./Testimonial";
-function Home() {
+function AboutUs() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,15 +16,35 @@ function Home() {
   }, []);
   return (
     <>
-      <HomeSeo />
+      <AboutusSeo />
       {isLoading ? (
         <Loading />
       ) : (
         // Your actual content when not loading
         <div>
           <Header />
-          {/* Banner Section   S T A R T */}
-          <Banner />
+          {/* Breadcumb Section   S T A R T */}
+          <div className="breadcumb-section">
+            <div className="breadcumb-wrapper">
+              <div className="container">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="breadcumb-content">
+                      <h1 className="breadcumb-title">About Us</h1>
+                      <ul className="breadcumb-menu">
+                        <li>
+                          <NavLink to="/">Home</NavLink>
+                        </li>
+                        <li className="text-white">/</li>
+                        <li className="active">About Us</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* About Us Section   S T A R T */}
           <section className="about-us-section fix section-padding pt-0 bg-color2">
             <div className="about-wrapper style2">
@@ -108,125 +127,6 @@ function Home() {
                     </span>
                   </li>
                 </ul>
-              </div>
-            </div>
-          </section>
-          {/* Our Menu Section   S T A R T */}
-          <section className="popular-dishes-section fix section-padding pt-0 bg-color2">
-            <div className="popular-dishes-wrapper-container">
-              <div className="container">
-                <div
-                  className="popular-dishes-wrapper style2 section-padding bg-white"
-                  style={{ borderRadius: "20px" }}
-                >
-                  <div className="shape1 float-bob-x d-none d-xxl-block">
-                    <img
-                      src="assets/img/shape/popularDishesShape1_1.png"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="shape2 float-bob-x d-none d-xxl-block">
-                    <img
-                      src="assets/img/shape/popularDishesShape1_2.png"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="container">
-                    <div className="title-area">
-                      <div className="sub-title text-center">
-                        <img
-                          className="me-1"
-                          src="assets/img/icon/titleIcon.svg"
-                          alt="icon"
-                        />
-                        Our Menu
-                        <img
-                          className="ms-1"
-                          src="assets/img/icon/titleIcon.svg"
-                          alt="icon"
-                        />
-                      </div>
-                      <h2 className="title">Our Best Category</h2>
-                    </div>
-                    <div className="row style1 mb-60">
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/item1_1.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Drinks</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/item1_1.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Foods</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/item1_1.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Desserts</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
@@ -659,4 +559,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default AboutUs;

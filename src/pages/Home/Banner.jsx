@@ -40,7 +40,7 @@ function Banner() {
           spaceBetween={0}
           slidesPerView={1}
           loop={true}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
           navigation={{ nextEl: ".arrow-next", prevEl: ".arrow-prev" }}
           pagination={{
             el: ".swiper-pagination .pagination-class",

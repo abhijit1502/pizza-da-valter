@@ -27,8 +27,15 @@ const Footer = () => {
                       <i className="fa-solid fa-location-dot" />
                     </div>
                     <div className="item2">
-                      <h6>address</h6>
-                      <p>7 Bellevue Road, London, SW17 7EG</p>
+                      <h6>Address</h6>
+                      <p>
+                        <NavLink
+                          target="_blank"
+                          to="https://maps.app.goo.gl/de6dVWNiz98cYef98"
+                        >
+                          7 Bellevue Road, London, SW17 7EG
+                        </NavLink>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -38,8 +45,12 @@ const Footer = () => {
                       <i className="fa-solid fa-envelope" />
                     </div>
                     <div className="item2">
-                      <h6>send email</h6>
-                      <p>info@pizzadavalter.co.uk</p>
+                      <h6>Email</h6>
+                      <p>
+                        <NavLink to="mailto:info@pizzadavalter.co.uk">
+                          info@pizzadavalter.co.uk
+                        </NavLink>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -49,17 +60,19 @@ const Footer = () => {
                       <i className="fa-regular fa-phone-volume" />
                     </div>
                     <div className="item2">
-                      <h6>call emergency</h6>
-                      <p>+44 20 8355 7032</p>
+                      <h6>Phone No.</h6>
+                      <p>
+                        <NavLink to="tel:442083557032">
+                          +44 20 8355 7032
+                        </NavLink>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="row">
-              <div
-                className="col-xl-3 col-lg-4 col-md-6"
-              >
+              <div className="col-xl-3 col-lg-4 col-md-6">
                 <div className="single-footer-widget">
                   <div className="widget-head">
                     <NavLink to="/">
@@ -88,28 +101,29 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="col-xl-3 col-lg-4 col-md-6 ps-xl-5"
-              >
+              <div className="col-xl-3 col-lg-4 col-md-6 ps-xl-5">
                 <div className="single-footer-widget">
                   <div className="widget-head">
                     <h3>Quick Links</h3>
                   </div>
                   <ul className="list-area">
                     <li>
-                      <NavLink to="about.html">
+                      <NavLink to="/aboutus">
                         <i className="fa-solid fa-chevrons-right" />
                         About Us
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="gallery.html">
+                      <NavLink
+                        to="https://www.standard.co.uk/going-out/restaurants/best-pizza-london-top-restaurants-a2945776.html"
+                        target="_blank"
+                      >
                         <i className="fa-solid fa-chevrons-right" />
                         Blogs
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="blog.html">
+                      <NavLink to="/contactus">
                         <i className="fa-solid fa-chevrons-right" />
                         Contact Us
                       </NavLink>
@@ -117,22 +131,20 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div
-                className="col-xl-3 col-lg-4 col-md-6 ps-xl-5"
-              >
+              <div className="col-xl-3 col-lg-4 col-md-6 ps-xl-5">
                 <div className="single-footer-widget">
                   <div className="widget-head">
                     <h3>Legal Links</h3>
                   </div>
                   <ul className="list-area">
                     <li>
-                      <NavLink to="menu.html">
+                      <NavLink to="/">
                         <i className="fa-solid fa-chevrons-right" />
                         Privacy policy
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="menu.html">
+                      <NavLink to="/">
                         <i className="fa-solid fa-chevrons-right" />
                         Allergen information
                       </NavLink>
@@ -140,9 +152,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div
-                className="col-xl-3 col-lg-4 col-md-6 ps-xl-5"
-              >
+              <div className="col-xl-3 col-lg-4 col-md-6 ps-xl-5">
                 <div className="single-footer-widget">
                   <div className="widget-head">
                     <h3>Opening Time</h3>
@@ -150,11 +160,17 @@ const Footer = () => {
                   <ul className="list-area">
                     <li className="mb-2">
                       Monday – Thursday:
-                      <span className="text-theme-color2"><br/>12:00am – 15:00pm & 17:00pm to 23:00am </span>
+                      <span className="text-theme-color2">
+                        <br />
+                        12:00am – 15:00pm &<br/>17:00pm to 23:00am
+                      </span>
                     </li>
                     <li>
                       Friday - Saturday:
-                      <span className="text-theme-color2"><br/>12:00am – 23:00pm </span>
+                      <span className="text-theme-color2">
+                        <br />
+                        12:00am – 23:00pm
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -166,7 +182,13 @@ const Footer = () => {
           <div className="container">
             <div className="footer-wrapper d-flex align-items-center justify-content-center">
               <p className="">
-              Copyright © {new Date().getFullYear()} <NavLink to="/"> Pizz Da Valter </NavLink> All Rights Reserved. | Powered By <NavLink to="https://www.calyx-solutions.com/" target="_blank"> Calyx Solutions </NavLink>
+                Copyright © {new Date().getFullYear()}{" "}
+                <NavLink to="/"> Pizz Da Valter </NavLink> All Rights Reserved.
+                | Powered By{" "}
+                <NavLink to="https://www.calyx-solutions.com/" target="_blank">
+                  {" "}
+                  Calyx Solutions{" "}
+                </NavLink>
               </p>
             </div>
           </div>

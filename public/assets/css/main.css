@@ -4862,7 +4862,7 @@ input.main-search-input::placeholder {
 }
 
 .offcanvas__logo a img {
-  width: 150px;
+  width: 185px;
 }
 
 .offcanvas__wrapper {
@@ -5231,7 +5231,8 @@ input.main-search-input::placeholder {
   margin-bottom: 10px;
 }
 
-.footer-top .fancy-box .item2 p {
+.footer-top .fancy-box .item2 p,
+.footer-top .fancy-box .item2 p a {
   color: var(--white);
   font-family: var(--title-font);
   font-size: 20px;
@@ -5803,6 +5804,7 @@ input.main-search-input::placeholder {
   background-color: var(--white);
   border-radius: 8px;
   margin-bottom: 25px;
+  border: 1px solid #D4DCFF;
 }
 
 .contact-form.style2 .single-select {
@@ -6532,7 +6534,7 @@ input.main-search-input::placeholder {
 }
 
 .breadcumb-wrapper .breadcumb-content {
-  padding: 160px 0;
+  padding: 70px 0;
   text-align: center;
 }
 
