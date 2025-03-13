@@ -120,7 +120,7 @@ function Banner() {
                   <div className="banner-container">
                     <div className="container">
                       <div className="row">
-                        <div className="col-12 col-xxl-6">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-title-area">
                             <div className="banner-style1">
                               <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".6s">
@@ -134,7 +134,7 @@ function Banner() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-12 col-xl-6 d-none d-xxl-block">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".6s" data-tilt>
                             <img
                               src="assets/img/banner/bannerThumb1_1.png"
@@ -211,7 +211,7 @@ function Banner() {
                   <div className="banner-container">
                     <div className="container">
                       <div className="row">
-                        <div className="col-12 col-xxl-6">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-title-area">
                             <div className="banner-style1">
                               <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".7s">
@@ -227,7 +227,7 @@ function Banner() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-12 col-xl-6 d-none d-xxl-block">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".7s" data-tilt>
                             <img
                               src="assets/img/banner/bannerThumb1_2.png"
@@ -305,7 +305,7 @@ function Banner() {
                   <div className="banner-container">
                     <div className="container">
                       <div className="row">
-                        <div className="col-12 col-xxl-6">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-title-area">
                             <div className="banner-style1">
                               <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".8s">
@@ -321,7 +321,7 @@ function Banner() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-12 col-xl-6 d-none d-xxl-block">
+                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                           <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".8s" data-tilt>
                             <img
                               src="assets/img/banner/bannerThumb1_3.png"

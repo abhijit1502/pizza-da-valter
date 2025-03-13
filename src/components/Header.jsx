@@ -232,7 +232,7 @@ const Header = () => {
                       <span className="button-icon">
                         <i className="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2" />
                       </span>
-                      <span className="button-text">ORDER NOW</span>
+                      <span className="button-text">BOOK NOW</span>
                     </span>
                   </NavLink>
                 </div>
@@ -275,7 +275,13 @@ const Header = () => {
             </div>
             <div className="main-header-items">
               <div className="header-top-wrapper">
-                <div className="social-icon d-flex align-items-center">
+              <marquee>
+                <h4 className="text-white">
+                Open Every Day! 🍕 Savor the Authentic Flavors of Italy, One Perfect Slice at a Time! 🍕
+                </h4>               
+              </marquee>
+
+                {/* <div className="social-icon d-flex align-items-center">
                   <span>Follow Us:</span>
                   <NavLink to="/">
                     <i className="fab fa-facebook-f" />
@@ -289,7 +295,7 @@ const Header = () => {
                   <NavLink to="/">
                     <i className="fab fa-linkedin-in" />
                   </NavLink>
-                </div>
+                </div> */}
               </div>
 
               <div id="header-sticky" className="header-1">
@@ -341,7 +347,7 @@ const Header = () => {
                     </div>
                     <div className="header-right d-flex justify-content-end align-items-center">
                       <NavLink className="theme-btn" to="/">
-                        ORDER NOW
+                        BOOK NOW
                         <i className="fa-sharp fa-regular fa-arrow-right" />
                       </NavLink>
                       {/* Sidebar Toggle Button */}

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       {/* Footer Section    S T A R T */}
-      <footer className="footer-section bg-title fix">
+      <footer className="footer-section bg-theme2 fix">
         <div className="footer-widgets-wrapper">
           <div className="shape1 float-bob-y d-none d-xxl-block">
             <img src="assets/img/shape/footerShape1_1.png" alt="shape" />
@@ -157,17 +157,17 @@ const Footer = () => {
                   <div className="widget-head">
                     <h3>Opening Time</h3>
                   </div>
-                  <ul className="list-area">
+                  <ul className="list-area text-white">
                     <li className="mb-2">
-                      Monday – Thursday:
-                      <span className="text-theme-color2">
+                      <strong>Monday – Thursday:</strong>
+                      <span className="text-white">
                         <br />
                         12:00am – 15:00pm &<br/>17:00pm to 23:00am
                       </span>
                     </li>
                     <li>
-                      Friday - Saturday:
-                      <span className="text-theme-color2">
+                      <strong>Friday - Saturday:</strong>
+                      <span className="text-white">
                         <br />
                         12:00am – 23:00pm
                       </span>

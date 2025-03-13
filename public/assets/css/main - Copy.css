@@ -1,5 +1,11 @@
 @charset "UTF-8";
 /*-----------------------------------------------------------------
+Theme Name: Fresheat
+Author: Gramentheme
+Author URI: https://themeforest.net/user/gramentheme 
+Version: 1.0.0 
+Description: Fresheat food & Restaurant Html Template  <
+
 -------------------------------------------------------------------
  CSS TABLE OF CONTENTS
 -------------------------------------------------------------------
@@ -54,8 +60,8 @@
   --body: #fff;
   --black: #000;
   --white: #fff;
-  --theme: #CE2B37;
-  --theme2: #009246;
+  --theme: #EB0029;
+  --theme2: #FC791A;
   --title: #010F1C;
   --dark: #222222;
   --text: #5C6574;
@@ -184,7 +190,7 @@ a {
 }
 
 a:hover {
-  color: var(--theme2) !important;
+  color: var(--theme) !important;
 }
 
 p {
@@ -466,12 +472,12 @@ textarea.form-control:focus {
 
 .theme-btn.style6:before {
   content: "";
-  background-color: var(--theme2);
+  background-color: var(--theme);
 }
 
 .theme-btn.style6:after {
   content: "";
-  background-color: var(--theme2);
+  background-color: var(--theme);
 }
 
 .theme-btn.style6:hover {
@@ -1932,8 +1938,8 @@ textarea.form-control:focus {
 
 @media (max-width: 767px) {
   .section-title .title {
-    font-size: 45px;
-    line-height: 55px;
+    font-size: 65px;
+    line-height: 80px;
   }
 }
 
@@ -1957,10 +1963,7 @@ textarea.form-control:focus {
 
 @media (max-width: 767px) {
   .section-title {
-    padding: 7px 0 7px 0;
-  }
-  .banner-section .banner-slider-area .swiper {
-    height: 695px!important;
+    padding: 110px 0 110px 0;
   }
 }
 
@@ -3465,8 +3468,8 @@ input.main-search-input::placeholder {
   top: 0;
   right: 0;
   width: 200px;
-  height: 46px;
-  background-color: var(--theme2);
+  height: 48px;
+  background-color: var(--theme);
   z-index: 99;
 }
 
@@ -4290,7 +4293,7 @@ input.main-search-input::placeholder {
 }
 
 .header-main .main-menu ul li a:hover {
-  color: var(--theme2) !important;
+  color: var(--theme) !important;
 }
 
 @media (max-width: 1899px) {
@@ -4353,12 +4356,12 @@ input.main-search-input::placeholder {
 }
 
 .header-main .main-menu ul li .submenu li:hover>a {
-  background: var(--theme2);
+  background: var(--theme);
   color: var(--white) !important;
 }
 
 .header-main .main-menu ul li .submenu li:hover>a::after {
-  color: var(--theme2);
+  color: var(--theme);
 }
 
 .header-main .main-menu ul li .submenu li:hover>.submenu {
@@ -5192,7 +5195,7 @@ input.main-search-input::placeholder {
 /* 14.Footer */
 .footer-top {
   padding: 50px 50px;
-  background: var(--white);
+  background: var(--theme2);
   margin-bottom: 40px;
   border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -5212,8 +5215,8 @@ input.main-search-input::placeholder {
   height: 39px;
   line-height: 39px;
   text-align: center;
-  background: var(--theme2);
-  color: var(--white);
+  background: var(--white);
+  color: var(--theme2);
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -5222,7 +5225,7 @@ input.main-search-input::placeholder {
 }
 
 .footer-top .fancy-box .item2 h6 {
-  color: var(--title);
+  color: var(--white);
   font-family: var(--body-font);
   font-size: 14px;
   font-style: normal;
@@ -5234,9 +5237,9 @@ input.main-search-input::placeholder {
 
 .footer-top .fancy-box .item2 p,
 .footer-top .fancy-box .item2 p a {
-  color: var(--title);
+  color: var(--white);
   font-family: var(--title-font);
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -5465,7 +5468,7 @@ input.main-search-input::placeholder {
 }
 
 .footer-widgets-wrapper .single-footer-widget .footer-content .social-icon a:hover {
-  background-color: var(--theme2);
+  background-color: var(--theme);
   color: var(--white) !important;
 }
 
@@ -6227,7 +6230,7 @@ input.main-search-input::placeholder {
 
 @media (max-width: 767px) {
   .banner-style1 {
-    padding: 20px 0 30px;
+    padding: 20px 0 75px;
   }
 }
 
@@ -6317,10 +6320,6 @@ input.main-search-input::placeholder {
   top: 58%;
   left: 4%;
   z-index: 99;
-}
-
-.swiper-pagination-bullet-active {
-  background: var(--theme2);
 }
 
 @media (max-width: 1600px) {
@@ -6548,7 +6547,7 @@ input.main-search-input::placeholder {
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
-  width: 5%;
+  width: 3%;
 }
 
 /* 17.Breadcumb */
@@ -6795,12 +6794,6 @@ input.main-search-input::placeholder {
   color: var(--theme);
   background-size: 100% 3px;
   opacity: 1;
-}
-
-.marquee-item.style2{
-  background-color: transparent;
-    line-height: 55px;
-    margin-bottom: -26px;
 }
 
 .marquee-item.style-2 .text-slider {
@@ -8890,7 +8883,7 @@ input.main-search-input::placeholder {
 .cta-wrap.style3 {
   position: relative;
   overflow: hidden;
-  background-image: url(../img/bg/ctaBG3_1.png);
+  background-image: url(../img/bg/ctaBG3_1.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -8995,7 +8988,7 @@ input.main-search-input::placeholder {
   display: inline-block;
   position: relative;
   padding: 8px 25px;
-  background-color: var(--black);
+  background-color: var(--theme);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -10442,7 +10435,7 @@ input.main-search-input::placeholder {
 }
 
 .services-card.style2:hover {
-  background-color: var(--theme2);
+  background-color: var(--title);
   margin-top: -5px;
 }
 
@@ -10808,7 +10801,7 @@ input.main-search-input::placeholder {
   font-weight: 500;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: var(--theme2);
+  background-color: var(--title);
   color: var(--white);
   transform: rotate(0);
   border-radius: 50%;
@@ -10864,7 +10857,7 @@ input.main-search-input::placeholder {
 }
 
 .faq-content.style-1 .accordion-item .accordion-header .accordion-button {
-  background-color: var(--theme2);
+  background-color: var(--theme);
   color: var(--white);
 }
 

@@ -153,7 +153,7 @@ function Home() {
                         <div className="single-food-items">
                           <div className="item-thumb">
                             <img
-                              src="assets/img/food-items/item1_1.png"
+                              src="assets/img/food-items/drinks.png"
                               alt="thumb"
                             />
                             <div className="circle-shape">
@@ -178,7 +178,7 @@ function Home() {
                         <div className="single-food-items">
                           <div className="item-thumb">
                             <img
-                              src="assets/img/food-items/item1_1.png"
+                              src="assets/img/food-items/foods.png"
                               alt="thumb"
                             />
                             <div className="circle-shape">
@@ -203,7 +203,7 @@ function Home() {
                         <div className="single-food-items">
                           <div className="item-thumb">
                             <img
-                              src="assets/img/food-items/item1_1.png"
+                              src="assets/img/food-items/desserts.png"
                               alt="thumb"
                             />
                             <div className="circle-shape">
