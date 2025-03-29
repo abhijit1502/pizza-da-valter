@@ -1,84 +1,85 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 function Testimonial() {
   return (
-    <section className="testimonial-section fix section-padding bg-white">
-      <div className="vagetable-shape">
-        <img src="assets/img/testimonial/vagetable-shape.png" alt="img" />
-      </div>
-      <div className="chili-shape">
-        <img src="assets/img/testimonial/chili-shape.png" alt="img" />
-      </div>
-      <div className="testimonial-wrapper style2">
-        <div className="container">
-          <div className="testimonial-wrap style2">
-            <div className="row gx-80 gy-5">
-              <div className="col-xl-7 order-2 order-xl-1">
-                <div className="title-area">
-                  <div className="sub-title text-start">
-                    <img className="me-1" src="assets/img/icon/titleIcon.svg" alt="icon" />
-                    TESTIMONIALS
-                    <img className="ms-1" src="assets/img/icon/titleIcon.svg" alt="icon" />
-                  </div>
-                  <h2 className="title text-start">what have lots of happy customer feedback</h2>
+      
+    <section className="overflow-hidden space">
+  <div className="shape-mockup jump d-none d-xl-block" data-bottom={0} data-right="5%">
+    <img src="assets/img/update_2/shape/french_fry.png" alt="shape" />
+  </div>
+  <div className="container">
+    <div className="row">
+      <div className="col-xl-6">
+        <div className="pe-xxl-5">
+          <div className="title-area mb-40 text-center text-xl-start">
+            <span className="sub-title">Testimonials</span>
+            <h2 className="sec-title">What customer saying About Services</h2>
+          </div>
+        </div>
+        <div className="testi-card-slide">
+          <div className="row th-carousel number-dots" data-slide-show={1} data-lg-slide-show={2} data-md-slide-show={1} data-dots="true" data-xl-dots="true" data-ml-dots="true" data-lg-dots="true" data-md-dots="true">
+            <div className="col-xl-4 col-lg-6">
+              <div className="testi-card">
+                <div className="testi-card_review">
+                  <i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" />
                 </div>
-                <div className="slider-area slider-btn-area">
-                  <Swiper
-                    spaceBetween={30}
-                    slidesPerView={1}
-                    autoplay={{ delay: 4000, disableOnInteraction: false }}
-                    navigation={{ nextEl: ".arrow-next", prevEl: ".arrow-prev" }}
-                    pagination={{ clickable: true }}
-                    modules={[Autoplay, Navigation, Pagination]}
-                    className="testimonialSliderTwo"
-                  >
-                    <SwiperSlide>
-                      <div className="testimonial-card style2">
-                        <div className="quote">
-                          <img src="assets/img/icon/quote.svg" alt="icon" />
-                        </div>
-                        <p>
-                          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                          classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock !
-                        </p>
-                        <div className="profile-box"></div>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="testimonial-card style2">
-                        <div className="quote">
-                          <img src="assets/img/icon/quote.svg" alt="icon" />
-                        </div>
-                        <p>
-                          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                          classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock !
-                        </p>
-                        <div className="profile-box"></div>
-                      </div>
-                    </SwiperSlide>
-                  </Swiper>
-                  <div className="btn-wrap">
-                    <div className="arrow-prev">
-                      <i className="fa-regular fa-arrow-left" />
-                    </div>
-                    <div className="arrow-next">
-                      <i className="fa-regular fa-arrow-right" />
-                    </div>
+                <p className="testi-card_text">
+                  <i className="fas fa-quote-left" />Pellentesque maximus velit ligula, amet efficitur neque condimentum eu. et odio elementum, sollicitudin Ipsum quis, rutrum sapien. Aenean in posuere elit, sed Dignissim justo. Nunc ut
+                  aliquet turpis<i className="fas fa-quote-right" />
+                </p>
+                <div className="testi-card_profile">
+                  <div className="testi-card_avater"><img src="assets/img/update_2/normal/testi_4_1.jpg" alt="Avater" /></div>
+                  <div className="media-body">
+                    <h3 className="testi-card_name">Rayan Kook</h3><span className="testi-card_desig">NYC, USA</span>
                   </div>
                 </div>
               </div>
-              <div className="col-xl-5 order-1 order-xl-2">
-                <div className="testimonial-thumb">
-                  <img src="assets/img/testimonial/testimonialThumb2_1.png" alt="thumb" />
+            </div>
+            <div className="col-xl-4 col-lg-6">
+              <div className="testi-card">
+                <div className="testi-card_review"><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /></div>
+                <p className="testi-card_text">
+                  <i className="fas fa-quote-left" />Pellentesque maximus velit ligula, amet efficitur neque condimentum eu. et odio elementum, sollicitudin Ipsum quis, rutrum sapien. Aenean in posuere elit, sed Dignissim justo. Nunc ut
+                  aliquet turpis<i className="fas fa-quote-right" />
+                </p>
+                <div className="testi-card_profile">
+                  <div className="testi-card_avater"><img src="assets/img/update_2/normal/testi_4_2.jpg" alt="Avater" /></div>
+                  <div className="media-body">
+                    <h3 className="testi-card_name">Michel Clark</h3><span className="testi-card_desig">DYM, USA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-lg-6">
+              <div className="testi-card">
+                <div className="testi-card_review"><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /><i className="fa-sharp fa-solid fa-star" /></div>
+                <p className="testi-card_text">
+                  <i className="fas fa-quote-left" />Pellentesque maximus velit ligula, amet efficitur neque condimentum eu. et odio elementum, sollicitudin Ipsum quis, rutrum sapien. Aenean in posuere elit, sed Dignissim justo. Nunc ut
+                  aliquet turpis<i className="fas fa-quote-right" />
+                </p>
+                <div className="testi-card_profile">
+                  <div className="testi-card_avater"><img src="assets/img/update_2/normal/testi_4_3.jpg" alt="Avater" /></div>
+                  <div className="media-body">
+                    <h3 className="testi-card_name">Rosse Mons</h3><span className="testi-card_desig">DO, USA</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <div className="col-xl-6 mt-40 mt-xl-0">
+        <div className="testi-card-img">
+          <div className="img1"><img src="assets/img/update_2/normal/testi-card_img.png" alt="Image" /></div>
+          <div className="shape1"><img src="assets/img/update_2/normal/testi-card_shape_1.png" alt="Image" /></div>
+          <div className="shape2"><img src="assets/img/update_2/normal/testi-card_shape_2.png" alt="Image" /></div>
+          <div className="shape3"><img src="assets/img/update_2/normal/testi-card_shape_3.png" alt="Image" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   );
 }
 

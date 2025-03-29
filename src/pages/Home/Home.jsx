@@ -4,17 +4,47 @@ import Header from "../../components/Header";
 import HomeSeo from "../../seo/HomeSeo";
 import Loading from "../../components/Loading";
 import { Link, NavLink } from "react-router-dom";
-import Banner from "./Banner";
 import Testimonial from "./Testimonial";
+import Banner from "./Banner";
 function Home() {
+  useEffect(() => {
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    };
+
+    const loadScripts = async () => {
+      try {
+        await loadScript("/assets/js/app.min.js");
+        await loadScript("/assets/js/main.js");
+      } catch (error) {
+        console.error("Error loading external scripts:", error);
+      }
+    };
+
+    loadScripts();
+
+    // Cleanup on component unmount
+    return () => {
+      document.querySelectorAll('script[src="/assets/js/app.min.js"], script[src="/assets/js/main.js"]').forEach((script) => script.remove());
+    };
+  }, []);
+  
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate an asynchronous operation (e.g., fetching data)
     setTimeout(() => {
       setIsLoading(false);
-    }, 300); // Simulating a 1-second delay
+    }, 300);
   }, []);
+
+
   return (
     <>
       <HomeSeo />
@@ -25,632 +55,536 @@ function Home() {
         <div>
           <Header />
           {/* Banner Section   S T A R T */}
-          <Banner />
-          {/* About Us Section   S T A R T */}
-          <section className="about-us-section fix section-padding pt-0 bg-color2">
-            <div className="about-wrapper style2">
-              <div className="shape1 d-none d-xxl-block">
-                <img src="assets/img/shape/aboutShape2_1.png" alt="shape" />
-              </div>
-              <div className="container">
-                <div className="about-us section-padding">
-                  <div className="row d-flex align-items-center">
-                    <div className="col-lg-6 d-flex align-items-center justify-content-center justify-content-xl-start">
-                      <div className="about-thumb mb-5 mb-lg-0">
-                        <img
-                          src="assets/img/about/aboutThumb2_1.png"
-                          alt="thumb"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="title-area">
-                        <div className="sub-title text-start">
-                          <img
-                            className="me-1"
-                            src="assets/img/icon/titleIcon.svg"
-                            alt="icon"
-                          />
-                          About US
-                          <img
-                            className="ms-1"
-                            src="assets/img/icon/titleIcon.svg"
-                            alt="icon"
-                          />
-                        </div>
-                        <h2 className="title text-start">Pizza Da Valter</h2>
-                        <div className="text text-start">
-                          Pizza da Valter is a family-owned restaurant dedicated
-                          to delivering authentic and delicious pizza in a warm,
-                          welcoming atmosphere. Known for our handcrafted
-                          recipes and fresh ingredients, we offer a variety of
-                          pizzas baked to perfection, alongside a selection of
-                          traditional Italian dishes and modern favorites. Our
-                          philosophy revolves around creating memorable dining
-                          experiences, whether you’re joining us for a casual
-                          meal or a special occasion. With attention to detail
-                          in every slice and a commitment to excellent service,
-                          Pizza da Valter is not just about food—it’s about
-                          family, tradition, and sharing the love for good food
-                          with our community.
-                        </div>
-                      </div>
-                      <div className="fancy-box-wrapper">
-                        <div className="fancy-box">
-                          <div className="item">
-                            <img
-                              src="assets/img/icon/dog-head.svg"
-                              alt="icon"
-                            />
-                          </div>
-                          <div className="item">
-                            <h6>Dog Friendly</h6>
-                            <p>
-                              Enjoy great food with your furry friend at our
-                              dog-friendly restaurants!
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="marquee-wrapper style-1 text-slider section-padding pt-0 bg-color2">
-              <div className="marquee-inner to-left">
-                <ul className="marqee-list d-flex">
-                  <li className="marquee-item style1">
-                    <span className="text-slider" />
-                    <span className="text-slider text-style">
-                      🍕 Freshly Baked Foods Just for You..! 🍕 Enjoy Pizzas,
-                      Tasty Treats & More!
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          {/* Our Menu Section   S T A R T */}
-          <section className="popular-dishes-section fix section-padding pt-0 bg-color2">
-            <div className="popular-dishes-wrapper-container">
-              <div className="container">
-                <div
-                  className="popular-dishes-wrapper style2 section-padding bg-white"
-                  style={{ borderRadius: "20px" }}
-                >
-                  <div className="shape1 float-bob-x d-none d-xxl-block">
-                    <img
-                      src="assets/img/shape/popularDishesShape1_1.png"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="shape2 float-bob-x d-none d-xxl-block">
-                    <img
-                      src="assets/img/shape/popularDishesShape1_2.png"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="container">
-                    <div className="title-area">
-                      <div className="sub-title text-center">
-                        <img
-                          className="me-1"
-                          src="assets/img/icon/titleIcon.svg"
-                          alt="icon"
-                        />
-                        Our Menu
-                        <img
-                          className="ms-1"
-                          src="assets/img/icon/titleIcon.svg"
-                          alt="icon"
-                        />
-                      </div>
-                      <h2 className="title">Our Best Category</h2>
-                    </div>
-                    <div className="row style1 mb-60">
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/drinks.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Drinks</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/foods.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Foods</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-4 col-md-4 col-12">
-                        <div className="single-food-items">
-                          <div className="item-thumb">
-                            <img
-                              src="assets/img/food-items/desserts.png"
-                              alt="thumb"
-                            />
-                            <div className="circle-shape">
-                              <img
-                                className="cir36"
-                                src="assets/img/food-items/circleShape.png"
-                                alt="shape"
-                              />
-                            </div>
-                          </div>
-                          <div className="item-content">
-                            <NavLink to="/">
-                              <h3>Desserts</h3>
-                            </NavLink>
-                            <NavLink to="/" className="theme-btn style6 mt-3">
-                              View More
-                            </NavLink>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* Services Section    S T A R T */}
-          <section className="services-section style1 fix section-padding bg-color2 pt-0">
-            <div className="">
-              <div className="shape11 d-none d-xxl-block">
-                <img
-                  className="float-bob-y"
-                  src="assets/img/shape/chefeShape2_1.png"
-                  alt="shape"
-                />
-              </div>
-              <div className="shape22 d-none d-xxl-block">
-                <img
-                  className="float-bob-x"
-                  src="assets/img/shape/chefeShape2_2.png"
-                  alt="shape"
-                />
-              </div>
-              <div className="container">
-                <div className="title-area">
-                  <div className="sub-title text-center">
-                    <img
-                      className="me-1"
-                      src="assets/img/icon/titleIcon.svg"
-                      alt="icon"
-                    />
-                    OUR Services
-                    <img
-                      className="ms-1"
-                      src="assets/img/icon/titleIcon.svg"
-                      alt="icon"
-                    />
-                  </div>
-                  <h2 className="title">Our Best Services</h2>
-                </div>
-                <div className="services-wrapper style2 pt-5">
-                  <div className="row gy-5 gx-30">
-                    <div className="col-lg-4">
-                      <div className="services-card style2">
-                        <div className="services-card_icon">
-                          <img src="assets/img/icon/pick-up.svg" alt="icon" />
-                        </div>
-                        <h4 className="services-card_title">
-                          <NavLink to="/">Pick-Up</NavLink>
-                        </h4>
-                        <p className="services-card_text mt-2">
-                          <strong>Discount:</strong> 10% OFF on all Pick-Up
-                          orders <br />
-                          <strong>Pizza Size:</strong> 12-inch Pizzas (one size
-                          only) <br />
-                          <strong>Payment Option:</strong> Pay at the restaurant
-                          when collecting your order <br />
-                          <br />
-                          <br />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div className="services-card style2">
-                        <div className="services-card_icon">
-                          <img src="assets/img/icon/delivery.svg" alt="icon" />
-                        </div>
-                        <h4 className="services-card_title">
-                          <NavLink to="/">Delivery</NavLink>
-                        </h4>
-                        <p className="services-card_text mt-2">
-                          (Coming Soon)
-                          <br />
-                          <br />
-                          <br />
-                          <br />
-                          <br />
-                          <br />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div className="services-card style2">
-                        <div className="services-card_icon">
-                          <img
-                            src="assets/img/icon/table-book.svg"
-                            alt="icon"
-                          />
-                        </div>
-                        <h4 className="services-card_title">
-                          <NavLink to="/">Book a Table</NavLink>
-                        </h4>
-                        <p className="services-card_text mt-2">
-                          <strong>Slot Time:</strong> Each booking slot lasts 75
-                          minutes
-                          <br />
-                          <strong>Required information:</strong> Date, Time,
-                          Number of People, Name, Phone Number <br />
-                          <strong>Start Time:</strong> Bookings begin at 12:15
-                          p.m <br />
-                          <strong>Restrictions:</strong> Select only from
-                          available time slots (no custom times)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* Cta section  S T A R T */}
-          <section className="cta-section style-white fix bg-color2">
-            <div className="cta-wrapper style3">
-              <div className="container">
-                <div className="cta-wrap  section-padding pt-xl-0 pb-xl-0 style3">
-                  <div className="shape1 float-bob-x d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_1.png" alt="shape" />
-                  </div>
-                  <div className="shape2 float-bob-y d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_2.png" alt="shape" />
-                  </div>
-                  <div className="shape3 float-bob-y d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_3.png" alt="shape" />
-                  </div>
-                  <div className="shape4 d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_4.png" alt="shape" />
-                  </div>
-                  <div className="shape5 d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_5.png" alt="shape" />
-                  </div>
-                  <div className="shape7 d-none d-xxl-block">
-                    <img src="assets/img/shape/ctaShape3_7.png" alt="shape" />
-                  </div>
-                  <div className="row g-5">
-                    <div className="col-xl-6  d-flex align-items-center justify-content-center order-2 order-xl-1">
-                      <div className="cta-content">
-                        <h6 className="text-white">
-                          <img
-                            className="me-1"
-                            src="assets/img/icon/titleIconWhite.svg"
-                            alt="icon"
-                          />
-                          DOWNLOAD APP
-                          <img
-                            className="ms-1"
-                            src="assets/img/icon/titleIconWhite.svg"
-                            alt="icon"
-                          />
-                        </h6>
-                        <h3 className="">Download Pizza Da Valter App</h3>
-                        <div className="btn-wrapper d-md-flex align-items-center gap-2">
-                          <div className="btns">
-                            <a
-                              className="apple-btn"
-                              href="https://www.apple.com/store"
-                            >
-                              <div className="d-flex align-items-center   gap-2">
-                                <img
-                                  src="assets/img/icon/appleStore.svg"
-                                  alt="icon"
-                                />
-                                <div>
-                                  <span>Get it on</span>
-                                  <h6>App store</h6>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="btns">
-                            <a
-                              className="google-btn"
-                              href="https://play.google.com/store/"
-                            >
-                              <div className="d-flex align-items-center  gap-2">
-                                <img
-                                  src="assets/img/icon/playStore.svg"
-                                  alt="icon"
-                                />
-                                <div>
-                                  <span>Get it on</span>
-                                  <h6>Google play</h6>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-6 d-flex align-items-center justify-content-center justify-content-xl-start order-1 order-xl-2">
-                      <div className="cta-thumb">
-                        <img
-                          className="img-fluid float-bob-x"
-                          src="assets/img/cta/ctaThumb3_1.png"
-                          alt="thumb"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* Testimonial section  S T A R T */}
-          <Testimonial />
-          {/* Faq Section    S T A R T */}
-          <div className="faq-section fix section-padding pt-0">
+          <Banner /> 
+
+          <section
+            className="space-extra bg-auto-repeat bg-title"
+            style={{
+              backgroundImage: "url(assets/img/update_2/bg/feature_bg_5.png)",
+            }}
+            data-bg-src="assets/img/update_2/bg/feature_bg_5.png"
+          >
             <div className="container">
-              <div className="title-area mb-45">
-                <div className="sub-title text-center">
-                  <img
-                    className="me-1"
-                    src="assets/img/icon/titleIcon.svg"
-                    alt="icon"
-                  />
-                  Faq
-                  <img
-                    className="ms-1"
-                    src="assets/img/icon/titleIcon.svg"
-                    alt="icon"
-                  />
-                </div>
-                <div className="title">frequently ask question</div>
-              </div>
-              <div className="row gx-60">
-                <div className="col-xl-5">
-                  <div className="faq-thumb w-100 h-100 fix rounded-3">
+              <div className="food-feature-wrap">
+                <div className="food-feature">
+                  <div className="food-feature_icon">
                     <img
-                      className="w-100 h-100 rounded-3"
-                      src="assets/img/dishes/burger.png"
-                      alt="thumb"
+                      src="assets/img/update_2/icon/delivery.svg"
+                      alt="Food"
                     />
                   </div>
+                  <h3 className="food-feature_title box-title">
+                    Home Delivery
+                  </h3>
+                  <p className="food-feature_text">(Coming Soon)</p>
                 </div>
-                <div className="col-xl-7">
-                  <div className="faq-content style-1 mt-5">
-                    <div className="faq-accordion">
-                      <div className="accordion" id="accordion">
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq1"
-                              aria-expanded="true"
-                              aria-controls="faq1"
-                            >
-                              How can I place an order online?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq1"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Download our app from the Play Store or App Store
-                              to place Pickup or Delivery orders. You can also
-                              view our food menu on our website.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq2"
-                              aria-expanded="false"
-                              aria-controls="faq2"
-                            >
-                              Do you offer vegan or gluten-free options?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq2"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Yes, we offer a variety of Vegan and Gluten-Free
-                              options. You can find these under the special
-                              diets section of our menu.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq3"
-                              aria-expanded="false"
-                              aria-controls="faq3"
-                            >
-                              What are your delivery hours?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq3"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Our delivery hours are:
-                              <ul>
-                                <li>
-                                  Monday - Thursday: 12 : 00 - 15 : 00 & 17 : 00
-                                  - 23 : 00
-                                </li>
-                                <li>Friday - Sunday: 12 : 00 - 23 : 00</li>
-                              </ul>
-                              Please check the 'Opening Hours' section for more
-                              details.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq4"
-                              aria-expanded="false"
-                              aria-controls="faq4"
-                            >
-                              Is there a discount for pick-up orders?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq4"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Yes, we offer a 10% discount for pick-up orders.
-                              You can find this option in the 'Pick Up' section
-                              of our menu.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq5"
-                              aria-expanded="false"
-                              aria-controls="faq5"
-                            >
-                              Can I make a reservation online?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq5"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Yes, you can book a table online through our
-                              mobile app. Just click on 'Book A Table' from the
-                              Booking screen and follow the instructions.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq6"
-                              aria-expanded="false"
-                              aria-controls="faq6"
-                            >
-                              How do I know if my booking is confirmed?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq6"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Once your booking is confirmed, you will receive a
-                              notification in the app and can check the order
-                              screen for confirmation details.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="accordion-item mb-3">
-                          <h5 className="accordion-header">
-                            <button
-                              className="accordion-button collapsed"
-                              type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target="#faq7"
-                              aria-expanded="false"
-                              aria-controls="faq7"
-                            >
-                              Do you have outdoor seating?
-                            </button>
-                          </h5>
-                          <div
-                            id="faq7"
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordion"
-                          >
-                            <div className="accordion-body">
-                              Yes, Pizza Da Valter offers outdoor seating with a
-                              view of Wandsworth Common. It provides a relaxing
-                              atmosphere, especially during the evening as the
-                              sun sets, giving you the feel of being on holiday.
-                            </div>
-                          </div>
-                        </div>
+                <div className="divider" />
+                <div className="food-feature">
+                  <div className="food-feature_icon">
+                    <img src="assets/img/update_2/icon/pickup.svg" alt="Food" />
+                  </div>
+                  <h3 className="food-feature_title box-title">Pick-Up</h3>
+                  <p className="food-feature_text">
+                    {" "}
+                    10% OFF on all Pick-Up orders
+                  </p>
+                </div>
+                <div className="divider" />
+                <div className="food-feature">
+                  <div className="food-feature_icon">
+                    <img
+                      src="assets/img/update_2/icon/book-table.svg"
+                      alt="Food"
+                    />
+                  </div>
+                  <h3 className="food-feature_title box-title">Book a Table</h3>
+                  <p className="food-feature_text">
+                    Each booking slot lasts 75 minutes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="space shape-mockup-wrap">
+            <div className="container">
+              <div className="row align-items-center">
+                <div className="col-xl-7 mb-40 mb-xl-0">
+                  <div className="img-box3">
+                    <img src="assets/img/normal/about_3_1.png" alt="About" />
+                    <div className="about-counter1">
+                      <h3 className="counter-title">
+                        <span className="counter-number">24</span>
+                      </h3>
+                      <div className="media-body">
+                        <p className="counter-info">YEARS OF</p>
+                        <h5 className="counter-text">Experience</h5>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="col-xl-5 col-md-10 ps-xxl-5">
+                  <div className="ms-xl-4">
+                    <div className="title-area mb-30">
+                      <span className="sub-title">About Us</span>
+                      <h2 className="sec-title">
+                      Pizza Da Valter
+                      </h2>
+                    </div>
+                    <p className="mt-n2 mb-4">
+                      Pizza da Valter is a family-owned restaurant dedicated to
+                      delivering authentic and delicious pizza in a warm,
+                      welcoming atmosphere. Known for our handcrafted recipes
+                      and fresh ingredients, we offer a variety of pizzas baked
+                      to perfection, alongside a selection of traditional
+                      Italian dishes and modern favorites.
+                    </p>
+                    <div className="about-feature-wrap">
+                      <div className="about-feature">
+                        <div className="about-feature_icon">
+                          <img
+                            src="assets/img/icon/a-feature_1_1.svg"
+                            alt="icon"
+                          />
+                        </div>
+                        <div className="about-feature_text">DELICIOUS</div>
+                      </div>
+                      <div className="about-feature">
+                        <div className="about-feature_icon">
+                          <img
+                            src="assets/img/icon/a-feature_1_2.svg"
+                            alt="icon"
+                          />
+                        </div>
+                        <div className="about-feature_text">FRESH</div>
+                      </div>
+                      <div className="about-feature">
+                        <div className="about-feature_icon">
+                          <img src="assets/img/icon/dog-head.svg" alt="icon" />
+                        </div>
+                        <div className="about-feature_text">DOG FRIENDLY</div>
+                      </div>
+                    </div>
+                    <NavLink to="/aboutus" className="th-btn">
+                      ABOUT MORE
+                      <i className="fa-solid fa-arrow-right ms-2" />
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="shape-mockup about-shape3"
+              style={{bottom:"120px", left:"15%"}}
+              data-bottom="120px"
+              data-left="15%"
+            >
+              <img src="assets/img/shape/bg_shape_4.png" alt="shapes" />
+            </div>
+            <div
+              className="shape-mockup leaf jump d-none d-xxl-block"
+              style={{bottom:"0%", left:"0%"}}
+              data-bottom="0%"
+              data-left="0%"
+            >
+              <img src="assets/img/shape/leaf_3.png" alt="shape" />
+            </div>
+            <div
+              className="shape-mockup leaf jump-reverse d-none d-xxl-block"
+              style={{bottom:"120px", right:"0%"}}
+              data-bottom="120px"
+              data-right="0%"
+            >
+              <img src="assets/img/shape/plate_1.png" alt="shape" />
+            </div>
+          </div>
+
+          <div className="space-bottom">
+            <div className="container">
+              <div className="row gy-4">
+                <div className="col-xl-4 col-md-6">
+                  <div
+                    className="offer-card"
+                    style={{
+                      backgroundImage: "url(assets/img/bg/discount_bg_1.jpg)",
+                    }}
+                    data-bg-src="assets/img/bg/discount_bg_1.jpg"
+                  >
+                    <h3 className="offer-title box-title">BURGER</h3>
+                    <p className="offer-text">
+                      Get a 20% Discount on This Week
+                    </p>
+                    {/* <NavLink to="" className="line-btn">
+                      BUY NOW
+                    </NavLink> */}
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-6">
+                  <div
+                    className="offer-card"
+                    style={{
+                      backgroundImage: "url(assets/img/bg/discount_bg_2.jpg)",
+                    }}
+                    data-bg-src="assets/img/bg/discount_bg_2.jpg"
+                  >
+                    <h3 className="offer-title box-title">FRENCH FRY</h3>
+                    <p className="offer-text">
+                      Get a 30% Discount on This Week
+                    </p>
+                    {/* <NavLink to="" className="line-btn">
+                      BUY NOW
+                    </NavLink> */}
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-6">
+                  <div
+                    className="offer-card"
+                    style={{
+                      backgroundImage: "url(assets/img/bg/discount_bg_3.jpg)",
+                    }}
+                    data-bg-src="assets/img/bg/discount_bg_3.jpg"
+                  >
+                    <h3 className="offer-title box-title">ITALIAN PASTA</h3>
+                    <p className="offer-text">
+                      Get a 25% Discount on This Week
+                    </p>
+                    {/* <NavLink to="" className="line-btn">
+                      BUY NOW
+                    </NavLink> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <section
+            className="position-relative bg-smoke2 space"
+            id="productMenu"
+            style={{
+              backgroundImage: "url(assets/img/update_2/bg/menu_bg_5.png)",
+            }}
+            data-bg-src="assets/img/update_2/bg/menu_bg_5.png"
+          >
+            <div className="container">
+              <div className="title-area text-center">
+                <span className="sub-title">Popular Food Menu</span>
+                <h2 className="sec-title">Choose your best menu</h2>
+              </div>
+              <div className="feature-grid-wrap">
+                <div className="feature-grid">
+                  <div className="feature-grid_img">
+                    <img src="assets/img/icon/drink.png" alt="Food" />
+                  </div>
+                  <div>
+                    <h3 className="feature-grid_title box-title">Drinks</h3>
+                    <p className="feature-grid_text mb-2">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                    <NavLink to="#" className="th-btn style7">
+                      VIEW MORE
+                      <i className="fa-solid fa-arrow-right ms-2" />
+                    </NavLink>
+                  </div>
+                </div>
+                <div className="feature-grid">
+                  <div className="feature-grid_img">
+                    <img src="assets/img/icon/foods.png" alt="Food" />
+                  </div>
+                  <div>
+                    <h3 className="feature-grid_title box-title">Foods</h3>
+                    <p className="feature-grid_text mb-2">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                    <NavLink to="#" className="th-btn style7">
+                      VIEW MORE
+                      <i className="fa-solid fa-arrow-right ms-2" />
+                    </NavLink>
+                  </div>
+                </div>
+                <div className="feature-grid">
+                  <div className="feature-grid_img">
+                    <img src="assets/img/icon/desserts.png" alt="Food" />
+                  </div>
+                  <div>
+                    <h3 className="feature-grid_title box-title">Desserts</h3>
+                    <p className="feature-grid_text mb-2">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                    <NavLink to="#" className="th-btn style7">
+                      VIEW MORE
+                      <i className="fa-solid fa-arrow-right ms-2" />
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="space shape-mockup-wrap">
+            <div
+              className="shape-mockup moving d-none d-lg-block"
+              style={{top:"10%", left:"3%"}}
+              data-top="10%"
+              data-left="3%"
+            >
+              <img src="assets/img/update_2/shape/tree_2.png" alt="shape" />
+            </div>
+            <div
+              className="shape-mockup jump d-none d-lg-block"
+              style={{bottom:"10px", right:"1%"}}
+              data-bottom="10%"
+              data-right="1%"
+            >
+              <img src="assets/img/update_2/shape/tomato_6.png" alt="shape" />
+            </div>
+            <div className="container">
+              <div className="row align-items-center">
+                <div className="col-xl-4 text-center text-xl-start">
+                  <div className="title-area mb-25">
+                    <span className="sub-title">Why Choose Us</span>
+                    <h2 className="sec-title">Discover art of Food with us.</h2>
+                  </div>
+                  <p className="mt-n2 mb-30">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                </div>
+                <div className="col-xl-8 mt-40 mt-xl-0">
+                  <div className="row gy-4 justify-content-center">
+                    <div className="col-lg-4 col-sm-6">
+                      <div className="why-feature">
+                        <div className="why-feature_icon">
+                          <img
+                            src="assets/img/update_2/icon/why_feature_1.svg"
+                            alt="icon"
+                          />
+                        </div>
+                        <h3 className="why-feature_title">Quality Foods</h3>
+                        <p className="why-feature_text">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-6">
+                      <div className="why-feature">
+                        <div className="why-feature_icon">
+                          <img
+                            src="assets/img/update_2/icon/why_feature_2.svg"
+                            alt="icon"
+                          />
+                        </div>
+                        <h3 className="why-feature_title">Table reservation</h3>
+                        <p className="why-feature_text">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-sm-6">
+                      <div className="why-feature">
+                        <div className="why-feature_icon">
+                          <img
+                            src="assets/img/update_2/icon/why_feature_3.svg"
+                            alt="icon"
+                          />
+                        </div>
+                        <h3 className="why-feature_title">Online Order</h3>
+                        <p className="why-feature_text">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            className="space bg-title position-relative"
+            style={{ backgroundImage: "url(assets/img/bg/booking_bg_2.png)" }}
+            data-bg-src="assets/img/bg/booking_bg_2.png"
+          >
+            <div className="container th-container">
+              <div className="row justify-content-between align-items-center">
+                <div className="col-xl-auto">
+                  <div className="available-table">
+                    <h3 className="available-table_title">Opening Time</h3>
+                    <p className="available-table_info">
+                      <span>Monday – Thursday</span>
+                      <span>
+                        12:00 – 15:00 <br />
+                        17:00 to 23:00
+                      </span>
+                    </p>
+                    <p className="available-table_info">
+                      <span>Friday - Saturday</span>
+                      <span>12:00 – 23:00</span>
+                    </p>
+                    <h3 className="available-table_title style2">Call Now</h3>
+                    <NavLink to="tel:442083557032" className="available-table_call">
+                      +44 20 8355 7032
+                    </NavLink>
+                  </div>
+                </div>
+                <div className="col-xl-auto">
+                  <h2 className="sec-title text-center text-white">
+                    Book A Table{" "}
+                    <span className="font-style text-theme">Now!</span>
+                  </h2>
+                  <form
+                    action="#"
+                    method="POST"
+                    className="booking-form style2"
+                  >
+                    <div className="row">
+                      <div className="form-group col-lg-6 col-sm-6">
+                        <input
+                          type="text"
+                          className="form-control rounded-2"
+                          id="Name"
+                          name="Name"
+                          placeholder="Name"
+                        />{" "}
+                        <i className="far fa-user" />
+                      </div>
+                      <div className="form-group col-lg-6 col-sm-6">
+                        <input
+                          type="tel"
+                          className="form-control rounded-2"
+                          id="number"
+                          name="number"
+                          placeholder="Phone Number"
+                        />{" "}
+                        <i className="far fa-phone" />
+                      </div>
+                      <div className="form-group col-lg-4">
+                        <input
+                          type="text"
+                          className="form-control date-pick"
+                          id="date-pick"
+                          name="date"
+                          placeholder="Select Date"
+                        />{" "}
+                        <i className="fal fa-calendar-days" />
+                      </div>
+                      <div className="form-group col-lg-4">
+                        <input
+                          type="text"
+                          className="form-control time-pick"
+                          id="time-pick"
+                          name="time"
+                          placeholder="Select-time"
+                        />{" "}
+                        <i className="fal fa-clock" />
+                      </div>
+                      <div className="form-group col-lg-4">
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="guest"
+                          id="guest"
+                          placeholder="Number of People"
+                        />{" "}
+                        <i className="fal fa-user-group" />
+                      </div>
+                      <div className="form-btn col-12 text-center">
+                        <button className="th-btn style3">
+                          SUBMIT REQUEST <i className="fa-solid fa-arrow-right ms-2" />
+                        </button>
+                      </div>
+                    </div>
+                    <p className="form-messages mb-0 mt-3" />
+                  </form>
+                </div>
+              </div>
+              <div
+                className="available-table-bg"
+                style={{ backgroundImage: "url(assets/img/bg/table_bg_1.jpg)" }}
+                data-bg-src="assets/img/bg/table_bg_1.jpg"
+              />
+            </div>
+          </section>
+
+          <div className="space-top shape-mockup-wrap">
+            <div className="container">
+              <div
+                className="download-area bg-smoke2"
+                style={{
+                  backgroundImage: "url(assets/img/bg/download_bg_1.png)",
+                }}
+                data-bg-src="assets/img/bg/download_bg_1.png"
+              >
+                <div className="row">
+                  <div className="col-xl-6 col-xxl-5 col-lg-7 col-md-9">
+                    <div className="title-area mb-30">
+                      <span className="sub-title">Download App</span>
+                      <h2 className="sec-title">
+                        Best App For Foods Ordering{" "}
+                        <span className="font-style text-theme">Now</span>
+                      </h2>
+                    </div>
+                    <p className="mt-n2 mb-4">
+                      Assertively underwhelm next-generation systems before
+                      pandemic action items. Synergistically re-engineer client
+                      based "outside.
+                    </p>
+                    <div className="download-btn-wrap">
+                      <NavLink
+                        target="_blank"
+                        to="https://play.google.com/"
+                        className="download-btn"
+                      >
+                        <i className="fa-brands fa-google-play" />
+                        <div className="text-group">
+                          <span className="small-text">Download From</span>
+                          <h6 className="big-text">Google Play</h6>
+                        </div>
+                      </NavLink>
+                      <NavLink
+                        target="_blank"
+                        to="https://www.apple.com/store"
+                        className="download-btn bg-theme2"
+                      >
+                        <i className="fa-brands fa-apple" />
+                        <div className="text-group">
+                          <span className="small-text">Download From</span>
+                          <h6 className="big-text">App Store</h6>
+                        </div>
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="shape-mockup leaf jump"
+              style={{top:"10%", right:"0"}}
+              data-top="10%"
+              data-right={0}
+            >
+              <img src="assets/img/shape/leaf_1.png" alt="shape" />
+            </div>
+            <div
+              className="shape-mockup leaf jump-reverse"
+              style={{top:"30%", left:"2%"}}
+              data-top="30%"
+              data-left="2%"
+            >
+              <img src="assets/img/shape/chips_1.png" alt="shape" />
+            </div>
+          </div>
+         
+         <Testimonial/> 
 
           <Footer />
         </div>

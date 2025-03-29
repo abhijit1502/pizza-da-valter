@@ -1,351 +1,219 @@
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Link, NavLink } from "react-router-dom";
 
 function Banner() {
-  const [isFirstSlide, setIsFirstSlide] = useState(true);
-
   useEffect(() => {
-    const tiltScript = document.createElement("script");
-    tiltScript.src = "assets/js/tilt.min.js";
-    tiltScript.async = true;
-    tiltScript.onload = () => {
-      if (window.VanillaTilt) {
-        window.VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-          max: 15,
-          speed: 300,
-          glare: true,
-          "max-glare": 0.5,
-        });
-      }
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
     };
-    document.body.appendChild(tiltScript);
 
-    const wowScript = document.createElement("script");
-    wowScript.src = "assets/js/wow.min.js";
-    wowScript.async = true;
-    wowScript.onload = () => {
-      if (window.WOW) {
-        new window.WOW().init();
+    const loadScripts = async () => {
+      try {
+        await loadScript("/assets/js/app.min.js");
+        await loadScript("/assets/js/main.js");
+      } catch (error) {
+        console.error("Error loading external scripts:", error);
       }
     };
-    document.body.appendChild(wowScript);
+
+    loadScripts();
+
+    // Cleanup on component unmount
+    return () => {
+      document.querySelectorAll('script[src="/assets/js/app.min.js"], script[src="/assets/js/main.js"]').forEach((script) => script.remove());
+    };
   }, []);
-
   return (
-    <section className="banner-section fix">
-      <div className="slider-area banner-slider-area">
-      <Swiper
-          modules={[Autoplay, Navigation, Pagination]}
-          spaceBetween={0}
-          slidesPerView={1}
-          loop={true}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          navigation={{ nextEl: ".arrow-next", prevEl: ".arrow-prev" }}
-          pagination={{
-            el: ".swiper-pagination .pagination-class",
-            clickable: true,
-          }}
-          className="swiper banner-slider"
-          onSlideChange={(swiper) => {
-            if (swiper.realIndex === 0) {
-              setIsFirstSlide(true);
-              new window.WOW().init(); // Re-initialize WOW.js when first slide appears
-            } else {
-              setIsFirstSlide(false);
-            }
-          }}
-        >
-          <div className="swiper-wrapper">
-            <SwiperSlide>
-              <div className="swiper-slide">
-                <div className="banner-wrapper style1 bg-img">
-                  <div
-                    className="shape1_1 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="2s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_1.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_2 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="2s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_2.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_3 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_3.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_4 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="2s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_4.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_5 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="2s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_5.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="shape1_6 d-none d-xxl-block cir36">
-                    <img
-                      src="assets/img/shape/bannerShape1_6.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="overlay" />
-                  <div className="banner-container">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-title-area">
-                            <div className="banner-style1">
-                              <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".6s">
-                                <h6 className="sub-title">WELCOME PIZZA DA VALTER</h6>
-                                <h1 className="title">SPICY FRIED CHICKEN</h1>
-                                <a className="theme-btn" href="contact.html">
-                                  ORDER NOW{" "}
-                                  <i className="fa-sharp fa-regular fa-arrow-right" />
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".6s" data-tilt>
-                            <img
-                              src="assets/img/banner/bannerThumb1_1.png"
-                              alt="shape"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="swiper-slide">
-                <div className="banner-wrapper style1 bg-img">
-                  <div
-                    className="shape1_1 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_1.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_2 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_2.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_3 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_3.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_4 d-none d-xxl-block float-bob-x wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_4.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_5 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_5.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="shape1_6 d-none d-xxl-block cir36">
-                    <img
-                      src="assets/img/shape/bannerShape1_6.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="overlay" />
-                  <div className="banner-container">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-title-area">
-                            <div className="banner-style1">
-                              <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".7s">
-                                <h6 className="sub-title">WELCOME PIZZA DA VALTER</h6>
-                                <h1 className="title">
-                                  Chicago Deep Pizza King
-                                </h1>
-                                <a className="theme-btn" href="menu.html">
-                                  ORDER NOW{" "}
-                                  <i className="fa-sharp fa-regular fa-arrow-right" />
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".7s" data-tilt>
-                            <img
-                              src="assets/img/banner/bannerThumb1_2.png"
-                              alt="shape"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="swiper-slide">
-                <div className="banner-wrapper style1 bg-img">
-                  <div
-                    className="shape1_1 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_1.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_2 d-none d-xxl-block"
-                    data-animation="slideInLeft"
-                    data-wow-duration="2s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_2.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_3 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_3.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_4 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_4.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div
-                    className="shape1_5 d-none d-xxl-block wow fadeIn"
-                    data-wow-duration="3s"
-                    data-wow-delay=".3s"
-                  >
-                    <img
-                      src="assets/img/shape/bannerShape1_5.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="shape1_6 d-none d-xxl-block cir36">
-                    <img
-                      src="assets/img/shape/bannerShape1_6.svg"
-                      alt="shape"
-                    />
-                  </div>
-                  <div className="overlay" />
-                  <div className="banner-container">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-title-area">
-                            <div className="banner-style1">
-                              <div className="section-title wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".8s">
-                                <h6 className="sub-title">WELCOME PIZZA DA VALTER</h6>
-                                <h1 className="title">
-                                  Chicago Deep Burger King
-                                </h1>
-                                <a className="theme-btn" href="menu.html">
-                                  ORDER NOW{" "}
-                                  <i className="fa-sharp fa-regular fa-arrow-right" />
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                          <div className="banner-thumb-area wow fadeInDown"  data-wow-duration="2s" data-wow-delay=".8s" data-tilt>
-                            <img
-                              src="assets/img/banner/bannerThumb1_3.png"
-                              alt="shape"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
+    <>
+ <div className="d-none d-md-block">
+    <div id="slider" className="ls-wp-container fitvidsignore hero-6 th-hero-carousel" style={{width: 1920, height: 794, margin: '0 auto'}}>
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 30, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 207, left: 340, color: '#ff0600',  fontFamily: '"Lobster Two"'}} 
+        className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" 
+        data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          Special Fast food
+        </div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik', top: 250, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik', top: 336, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          FAST FOOD
+        </h1>
+        <div style={{fontSize: 18,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 440, left: 345, WebkitBackgroundClip: 'border-box'}}
+         className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" 
+         data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: 344, top: 530, textTransform: 'uppercase', paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">
+            Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} />
           </div>
-        </Swiper>
-        <div className="arrow-prev">
-          <img src="assets/img/icon/arrowPrev.svg" alt="Prev" />
+        </NavLink> */}
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 217, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 324, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          FAST FOOD
+        </h1>
+        <div style={{fontSize: 45, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 151, left: 74, color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Welcome to Pizza De Valter</div>
+        <div style={{fontSize: 28,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 453, left: 76, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
         </div>
-        <div className="arrow-next">
-          <img src="assets/img/icon/arrowNext.svg" alt="Next" />
+        {/* <NavLink style={{}} className="ls-l ls-hide-desktop" to="/" target="_self" data-ls="offsetxin:500; delayin:200; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#eb0029;">
+          <div style={{fontSize: 32, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', left: 78, top: 586, textTransform: 'uppercase', paddingBottom: 30, paddingTop: 30, fontWeight: 600,  backgroundColor: '#eb0029', borderRadius: '10px 10px 10px 10px', width: 370}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="#3" target="_self" data-ls="scalexin:0; scaleyin:0; static:forever;"><img width={61} height={60} src="assets/img/update_2/hero/hero_thumb_6_3.png" className="ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', left: 200, top: 436}} />              </NavLink>
+        <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="#2" target="_self" data-ls="scalexin:0; scaleyin:0; static:forever;"><img width={61} height={60} src="assets/img/update_2/hero/hero_thumb_6_2.png" className="ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', left: 200, top: 367}} />              </NavLink>
+        <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="#1" target="_self" data-ls="scalexin:0; scaleyin:0; static:forever;"><img width={61} height={60} src="assets/img/update_2/hero/hero_thumb_6_1.png" className="ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', left: 200, top: 297}} /></NavLink>
+        <div style={{fontSize: 36, strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', width: 61, height: 60, top: 297, left: 200, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-tablet ls-hide-phone ls-svg-layer" data-ls="scalexin:0; scaleyin:0;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 60" fill="none">
+            <circle cx="30.3096" cy={30} r={28} stroke="#FF0600" fill="transparent" strokeWidth={4} />
+          </svg>
         </div>
-        <div className="pagination-class swiper-pagination" />
+        <img width={321} height={282} src="assets/img/update_2/hero/hero_img_6_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1022, top: 36, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:12;" />
+        <img width={481} height={564} src="assets/img/update_2/hero/hero_img_6_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 214, left: 1220, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:-100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:8;" /> <img width={290} height={352} src="assets/img/update_2/hero/hero_img_6_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 50, left: 1413, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:10;" /> <img width={581} height={580} src="assets/img/update_2/hero/hero_img_6_1.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1060, top: 107, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:500; durationin:600; delayin:100; easingin:easeOutBack; rotatein:80; bgcolorin:transparent; colorin:transparent;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 765, top: 121, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 596, left: 752, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 60, left: 529, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 546, left: 128, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 80, top: 78, width: 108, height: 78, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={1920} height={54} src="assets/img/update_2/hero/hero_fire.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 740, left: 0, width: 1920, WebkitBackgroundClip: 'border-box'}} data-ls="transitionout:false; loop:true; loopscaley:0.5; looptransformorigin:center bottom; loopcount:-1; loopyoyo:true; static:forever;" /> <img width={190} height={805} src="assets/img/update_2/hero/hero_shape_2_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1730, top: 0, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:180; durationin:1500; delayin:100; easingin:easeOutQuint;" />
       </div>
-    </section>
+
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 30, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 207, left: 340, color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Special Fast food</div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 250, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 336, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY FOOD
+        </h1>
+        <div style={{fontSize: 18,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 440, left: 345, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: 344, top: 530, textTransform: 'uppercase',  paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 217, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 324, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY FOOD
+        </h1>
+        <div style={{fontSize: 45, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 151, left: 74, color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Welcome to Pizza De Valter</div>
+        <div style={{fontSize: 28,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 453, left: 76, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l ls-hide-desktop" to="/" target="_self" data-ls="offsetxin:500; delayin:200; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#eb0029;">
+          <div style={{fontSize: 32, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', left: 78, top: 586, textTransform: 'uppercase', paddingBottom: 30, paddingTop: 30, fontWeight: 600,  backgroundColor: '#eb0029', borderRadius: '10px 10px 10px 10px', width: 370}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <img width={321} height={282} src="assets/img/update_2/hero/hero_img_6_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1022, top: 36, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:12;" /> <img width={481} height={564} src="assets/img/update_2/hero/hero_img_6_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 214, left: 1220, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:-100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:8;" /> <img width={290} height={352} src="assets/img/update_2/hero/hero_img_6_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 50, left: 1413, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:10;" /> <img width={581} height={580} src="assets/img/update_2/hero/hero_img_6_2.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1060, top: 107, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:500; durationin:600; delayin:100; easingin:easeOutBack; rotatein:80; bgcolorin:transparent; colorin:transparent;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 765, top: 121, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 596, left: 752, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 60, left: 529, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 546, left: 128, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" />
+        <div style={{fontSize: 36, strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', width: 61, height: 60, top: 367, left: 200, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-tablet ls-hide-phone ls-svg-layer" data-ls="scalexin:0; scaleyin:0;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 60" fill="none">
+            <circle cx="30.3096" cy={30} r={28} stroke="#FF0600" fill="transparent" strokeWidth={4} />
+          </svg>
+        </div><img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 80, top: 78, width: 108, height: 78, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={190} height={805} src="assets/img/update_2/hero/hero_shape_2_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1730, top: 0, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:180; durationin:1500; delayin:100; easingin:easeOutQuint;" />
+      </div>
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 30, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 207, left: 340, color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Special Fast food</div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 250, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY IS
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 336, left: 340, fontSize: 80, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          OUR PRIORITY
+        </h1>
+        <div style={{fontSize: 18,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 440, left: 345, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-tablet ls-hide-phone ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l ls-hide-tablet ls-hide-phone" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: 344, top: 530, textTransform: 'uppercase',  paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 217, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY IS
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 324, left: 72, fontSize: 100, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          OUR PRIORITY
+        </h1>
+        <div style={{fontSize: 45, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 151, left: 74, color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Welcome to Pizza De Valter</div>
+        <div style={{fontSize: 28,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 453, left: 76, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-desktop ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l ls-hide-desktop" to="/" target="_self" data-ls="offsetxin:500; delayin:200; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#eb0029;">
+          <div style={{fontSize: 32, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', left: 78, top: 586, textTransform: 'uppercase', paddingBottom: 30, paddingTop: 30, fontWeight: 600,  backgroundColor: '#eb0029', borderRadius: '10px 10px 10px 10px', width: 370}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <img width={321} height={282} src="assets/img/update_2/hero/hero_img_6_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1022, top: 36, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:12;" /> <img width={481} height={564} src="assets/img/update_2/hero/hero_img_6_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 214, left: 1220, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:-100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:8;" /> <img width={290} height={352} src="assets/img/update_2/hero/hero_img_6_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 50, left: 1413, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-100; offsetyin:100; durationin:1500; delayin:100; easingin:easeOutQuint; scalexin:0.5; scaleyin:0.5; parallax:true; parallaxlevel:10;" /> <img width={581} height={580} src="assets/img/update_2/hero/hero_img_6_3.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1060, top: 107, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:500; durationin:600; delayin:100; easingin:easeOutBack; rotatein:80; bgcolorin:transparent; colorin:transparent;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 765, top: 121, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 596, left: 752, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 60, left: 529, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 546, left: 128, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 80, top: 78, width: 108, height: 78, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" />
+        <div style={{fontSize: 36, strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', width: 61, height: 60, top: 436, left: 200, WebkitBackgroundClip: 'border-box'}} className="ls-l ls-hide-tablet ls-hide-phone ls-svg-layer" data-ls="scalexin:0; scaleyin:0;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 60" fill="none">
+            <circle cx="30.3096" cy={30} r={28} stroke="#FF0600" fill="transparent" strokeWidth={4} />
+          </svg>
+        </div><img width={190} height={805} src="assets/img/update_2/hero/hero_shape_2_6.png" className="ls-l ls-img-layer" alt="image" decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 1730, top: 0, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:180; durationin:1500; delayin:100; easingin:easeOutQuint;" />
+      </div>
+    </div>
+  </div>
+  <div className="d-block d-md-none">
+    <div id="slider-phone" className="ls-wp-container fitvidsignore hero-6 th-hero-carousel" style={{width: 500, height: 520, margin: '0 auto'}}>
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 22, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 89, left: '50%', color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Special Fast food</div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 132, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 202, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          FAST FOOD
+        </h1>
+        <div style={{fontSize: 14,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'center', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 292, left: '50%', WebkitBackgroundClip: 'border-box'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: '50%', top: 371, textTransform: 'uppercase',  paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 21, top: 20, width: 65, height: 47, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 434, left: 51, width: 40, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 154, left: 20, width: 50, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 457, left: 405, width: 57, height: 27, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 408, top: 37, width: 17, height: 39, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={500} height={52} src="assets/img/update_2/hero/hero_fire_3.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 468, left: '-1px', WebkitBackgroundClip: 'border-box'}} data-ls="loop:true; loopscaley:0.5; looptransformorigin:center bottom; loopcount:-1; loopyoyo:true; static:forever;" />
+      </div>
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 22, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 89, left: '50%', color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Special Fast food</div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 132, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          KINGS OF
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 202, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY FOOD
+        </h1>
+        <div style={{fontSize: 14,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'center', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 292, left: '50%', WebkitBackgroundClip: 'border-box'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: '50%', top: 371, textTransform: 'uppercase',  paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 21, top: 20, width: 65, height: 47, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 434, left: 51, width: 40, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 154, left: 20, width: 50, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 457, left: 405, width: 57, height: 27, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 408, top: 37, width: 17, height: 39, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" />
+      </div>
+      <div className="ls-slide" data-ls="duration:5000; kenburnsscale:1.2;">
+        <div style={{fontSize: 22, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', top: 89, left: '50%', color: '#ff0600',  fontFamily: '"Lobster Two"'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">Special Fast food</div>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 132, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          QUALITY IS
+        </h1>
+        <h1 style={{textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 700, letterSpacing: 0, backgroundPosition: '50% 50%', backgroundRepeat: 'repeat', fontFamily: 'Rubik',  top: 202, left: '50%', fontSize: 60, backgroundSize: 'auto', color: '#0e1317', whiteSpace: 'normal'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent;">
+          OUR PRIORITY
+        </h1>
+        <div style={{fontSize: 14,lineHeight:'25px', stroke: '#000', strokeWidth: 0, textAlign: 'center', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 500, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible',  color: '#787878', fontFamily: 'Roboto', top: 292, left: '50%', WebkitBackgroundClip: 'border-box'}} className="ls-l ls-text-layer" data-ls="offsetxin:500; delayin:80; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent;">
+          Offering an unrivaled selection of mouthwatering favorites
+          <br />served With speed and quality
+        </div>
+        {/* <NavLink style={{}} className="ls-l" to="/" target="_self" data-ls="offsetxin:500; delayin:180; easingin:easeOutBack; bgcolorin:transparent; colorin:transparent; offsetxout:-120; durationout:800; startatout:slidechangeonly + ; bgcolorout:transparent; colorout:transparent; hover:true; hoveropacity:1; hoverbgcolor:#ffffff; hovercolor:#ff0600;">
+          <div style={{fontSize: 14, color: '#fff', textAlign: 'center', fontFamily: 'Rubik', cursor: 'pointer', width: 180, left: '50%', top: 371, textTransform: 'uppercase',  paddingBottom: 20, paddingTop: 22, fontWeight: 600, borderRadius: '4px 4px 4px 4px', backgroundColor: '#ff0600'}} className="ls-ib-icon ls-button-layer">Explore menu<i className="fa fa-arrow-right" style={{marginLeft: '.5em', fontSize: '1em'}} /></div>
+        </NavLink> */}
+        <img width={129} height={93} src="assets/img/update_2/hero/hero_shape_2_5.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 21, top: 20, width: 65, height: 47, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={78} height={80} src="assets/img/update_2/hero/hero_shape_2_4.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 434, left: 51, width: 40, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:-200; offsetyin: 300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" /> <img width={121} height={100} src="assets/img/update_2/hero/hero_shape_2_3.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 154, left: 20, width: 50, height: 41, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:8;" /> <img width={105} height={50} src="assets/img/update_2/hero/hero_shape_2_2.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', top: 457, left: 405, width: 57, height: 27, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:10;" /> <img width={26} height={60} src="assets/img/update_2/hero/hero_shape_2_1.png" className="ls-l ls-img-layer" alt decoding="async" style={{fontSize: 36, color: '#000', stroke: '#000', strokeWidth: 0, textAlign: 'left', fontStyle: 'normal', textDecoration: 'none', textTransform: 'none', fontWeight: 400, letterSpacing: 0, backgroundPosition: '0% 0%', backgroundRepeat: 'no-repeat', backgroundClip: 'border-box', overflow: 'visible', left: 408, top: 37, width: 17, height: 39, WebkitBackgroundClip: 'border-box'}} data-ls="offsetxin:200; offsetyin:-300; durationin:1500; delayin:100; easingin:easeOutQuint; parallax:true; parallaxlevel:12;" />
+      </div>
+    </div>
+  </div>
+
+    </>
   );
 }
 

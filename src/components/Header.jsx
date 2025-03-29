@@ -2,364 +2,235 @@ import React, { useEffect, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 
 const Header = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [isSticky, setSticky] = useState(false);
-  const [dropdownState, setDropdownState] = useState({});
+  const [menuVisible, setMenuVisible] = useState(false);
+  const menuWrapperRef = React.useRef(null);
 
+  // Script loading with cleanup
   useEffect(() => {
-    const handleScroll = () => {
-      setSticky(window.scrollY > 50);
-      setShowBackToTop(window.scrollY > 20);
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const scriptUrls = ["/assets/js/app.min.js", "/assets/js/main.js"];
+
+    const loadScripts = async () => {
+      try {
+        await Promise.all(scriptUrls.map((url) => loadScript(url)));
+      } catch (error) {
+        console.error("Error loading scripts:", error);
+      }
+    };
+
+    loadScripts();
+
+    return () => {
+      scriptUrls.forEach((url) => {
+        const scripts = document.querySelectorAll(`script[src="${url}"]`);
+        scripts.forEach((script) => script.remove());
+      });
+    };
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        menuWrapperRef.current &&
+        !menuWrapperRef.current.contains(e.target) &&
+        menuVisible
+      ) {
+        setMenuVisible(false);
+      }
+    };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(true);
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuVisible]);
 
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
+  const toggleMenu = (e) => {
+    e?.stopPropagation();
+    setMenuVisible((prev) => !prev);
 
-  const toggleDropdown = (index) => {
-    setDropdownState((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+    const menuWrapper = document.querySelector(".th-menu-wrapper");
+    if (menuWrapper && menuWrapper.classList.contains("th-body-visible")) {
+      menuWrapper.classList.remove("th-body-visible");
+    }
   };
 
   return (
     <>
-      {/* Back To Top Button */}
-      <button
-        id="back-top"
-        className={`back-to-top ${showBackToTop ? "show" : ""}`}
-        onClick={scrollToTop}
+     <div
+        ref={menuWrapperRef}
+        className={`th-menu-wrapper ${menuVisible ? "th-body-visible" : ""}`}
       >
-        <i className="fa-regular fa-arrow-up" />
-      </button>
-
-      {/* Offcanvas Area */}
-      <div className="fix-area">
-        <div className={`offcanvas__info ${isSidebarOpen ? "info-open" : ""}`}>
-          <div className="offcanvas__wrapper">
-            <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
-                <div className="offcanvas__logo">
-                  <NavLink to="/">
-                    <img src="assets/img/logo/logo.png" alt="logo-img" />
-                  </NavLink>
-                </div>
-                <div className="offcanvas__close" onClick={closeSidebar}>
-                  <button>
-                    <i className="fas fa-times" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="mobile-menu fix mb-3 mean-container">
-                <div className="mean-bar">
-                  <NavLink
-                    to="#nav"
-                    className="meanmenu-reveal"
-                    style={{ right: 0, left: "auto", display: "inline" }}
-                  >
-                    <span>
-                      <span>
-                        <span />
-                      </span>
-                    </span>
-                  </NavLink>
-                  <nav className="mean-nav">
-                    <ul style={{ display: "none" }}>
-                      <li>
-                        <NavLink to="/" className="border-none">
-                          Home
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/aboutus" className="border-none">
-                          About Us
-                        </NavLink>
-                      </li>
-                      <li
-                        className={`has-dropdown ${
-                          dropdownState[0] ? "dropdown-opened" : ""
-                        }`}
-                      >
-                        <NavLink to="/" className="border-none">
-                          Menu <i className="fa-regular fa-plus" />
-                        </NavLink>
-                        <ul
-                          className="submenu"
-                          style={{
-                            display: dropdownState[0] ? "block" : "none",
-                          }}
-                        >
-                          <li>
-                            <NavLink to="/">Drinks</NavLink>
-                          </li>
-                          <li>
-                            <NavLink to="/">Foods</NavLink>
-                          </li>
-                          <li>
-                            <NavLink to="/">Desserts</NavLink>
-                          </li>
-                        </ul>
-                        <NavLink
-                          className={`mean-expand ${
-                            dropdownState[0] ? "mean-clicked" : ""
-                          }`}
-                          to="/"
-                          style={{ fontSize: 18 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleDropdown(0); // Unique index for first dropdown
-                          }}
-                        >
-                          <i className="far fa-plus" />
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="https://www.standard.co.uk/going-out/restaurants/best-pizza-london-top-restaurants-a2945776.html" target="_blank" className="border-none">
-                          Blogs
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/contactus" className="border-none">
-                          Contact Us
-                        </NavLink>
-                      </li>
-                      {/* <li
-                        className={`has-dropdown ${
-                          dropdownState[1] ? "dropdown-opened" : ""
-                        }`}
-                      >
-                        <NavLink to="/" className="border-none">
-                          Home <i className="fa-regular fa-plus" />
-                        </NavLink>
-                        <ul
-                          className="submenu"
-                          style={{
-                            display: dropdownState[1] ? "block" : "none",
-                          }}
-                        >
-                          <li>
-                            <NavLink to="/">Home 01</NavLink>
-                          </li>
-                          <li>
-                            <NavLink to="index-3.html">Home 02</NavLink>
-                          </li>
-                          <li>
-                            <NavLink to="index-4.html">Home 03</NavLink>
-                          </li>
-                        </ul>
-                        <NavLink
-                          className={`mean-expand ${
-                            dropdownState[1] ? "mean-clicked" : ""
-                          }`}
-                          to="/"
-                          style={{ fontSize: 18 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleDropdown(1); // Unique index for second dropdown
-                          }}
-                        >
-                          <i className="far fa-plus" />
-                        </NavLink>
-                      </li> */}
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-
-              <div className="offcanvas__contact">
-                <h4>Contact Info</h4>
-                <ul>
-                  <li className="d-flex align-items-baseline">
-                    <div className="offcanvas__contact-icon">
-                      <i className="fal fa-map-marker-alt" />
-                    </div>
-                    <div className="offcanvas__contact-text">
-                      <NavLink target="_blank" to="https://maps.app.goo.gl/de6dVWNiz98cYef98">
-                      7 Bellevue Road, London, SW17 7EG
-                      </NavLink>
-                    </div>
+        <div className="th-menu-area text-center">
+          <button className="th-menu-toggle" onClick={toggleMenu}>
+            <i className="fal fa-times" />
+          </button>
+          <div className="mobile-logo">
+            <NavLink to="/">
+              <img src="assets/img/logo.png" alt="Pizza De Valter" />
+            </NavLink>
+          </div>
+          <div className="th-mobile-menu">
+            <ul>
+              <li>
+                <NavLink to="#">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/aboutus">About Us</NavLink>
+              </li>
+              <li className="menu-item-has-children">
+                <NavLink to="#">Menu</NavLink>
+                <ul className="sub-menu">
+                  <li>
+                    <NavLink to="/foods">Foods</NavLink>
                   </li>
-                  <li className="d-flex align-items-baseline">
-                    <div className="offcanvas__contact-icon mr-15">
-                      <i className="fal fa-envelope" />
-                    </div>
-                    <div className="offcanvas__contact-text">
-                      <NavLink to="mailto:info@pizzadavalter.co.uk">
-                        <span className="mailto:info@pizzadavalter.co.uk">
-                        info@pizzadavalter.co.uk
-                        </span>
-                      </NavLink>
-                    </div>
+                  <li>
+                    <NavLink to="/dirnks">Drinks</NavLink>
                   </li>
-                  <li className="d-flex align-items-baseline">
-                    <div className="offcanvas__contact-icon mr-15">
-                      <i className="fal fa-clock" />
-                    </div>
-                    <div className="offcanvas__contact-text">
-                      <NavLink to="/">
-                      Monday – Thursday: 12:00am – 15:00pm & 17:00pm to 23:00am<br/>
-                      Friday - Saturday: 12:00am – 23:00pm
-                      </NavLink>
-                    </div>
-                  </li>
-                  <li className="d-flex align-items-baseline">
-                    <div className="offcanvas__contact-icon mr-15">
-                      <i className="far fa-phone" />
-                    </div>
-                    <div className="offcanvas__contact-text">
-                      <NavLink to="tel:442083557032">+44 20 8355 7032</NavLink>
-                    </div>
+                  <li>
+                    <NavLink to="/dessert">Desserts</NavLink>
                   </li>
                 </ul>
-                <div className="header-button mt-4">
-                  <NavLink to="/" className="theme-btn">
-                    <span className="button-content-wrapper d-flex align-items-center justify-content-center">
-                      <span className="button-icon">
-                        <i className="fa-sharp fa-regular fa-cart-shopping bg-transparent text-white me-2" />
-                      </span>
-                      <span className="button-text">BOOK NOW</span>
-                    </span>
-                  </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="https://www.standard.co.uk/going-out/restaurants/best-pizza-london-top-restaurants-a2945776.html"
+                  target="_blank"
+                >
+                  Blogs
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contactus">Contact Us</NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <header className="th-header header-layout6">
+        <div className="header-top">
+          <div className="container">
+            <div className="row justify-content-center justify-content-lg-between align-items-center">
+              <div className="col-auto d-none d-lg-block">
+                <div className="header-links">
+                  <ul>
+                    <li>
+                      <i className="far fa-envelope" />
+                      <NavLink to="mailto:info@pizzadavalter.co.uk">
+                        info@pizzadavalter.co.uk
+                      </NavLink>
+                    </li>
+                    <li>
+                      <i className="far fa-location-dot" />7 Bellevue Road,
+                      London, SW17 7EG
+                    </li>
+                  </ul>
                 </div>
-                <div className="social-icon d-flex align-items-center">
-                  <NavLink to="/">
-                    <i className="fab fa-facebook-f" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-twitter" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-youtube" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-linkedin-in" />
-                  </NavLink>
+              </div>
+              <div className="col-auto">
+                <div className="header-links">
+                  <ul>
+                    <li>
+                      <div className="header-social">
+                        {/* <NavLink to="https://www.facebook.com/" target="_blank">
+                          <i className="fab fa-facebook-f" />
+                        </NavLink>
+                        <NavLink to="https://www.twitter.com/" target="_blank">
+                          <i className="fab fa-twitter" />
+                        </NavLink> */}
+                        <NavLink to="https://www.tiktok.com/@pizzadavalter?_t=8qYuz15cy3s&_r=1" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                        </NavLink>
+                        <NavLink to="https://www.instagram.com/explore/locations/278152442663307/pizza-da-valter-london/" target="_blank">
+                          <i className="fab fa-instagram" />
+                        </NavLink>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Overlay */}
-      <div
-        className={`offcanvas__overlay ${isSidebarOpen ? "overlay-open" : ""}`}
-        onClick={closeSidebar}
-      />
-
-      {/* Header Section */}
-      <header className={`header-section ${isSticky ? "header-fixed" : ""}`}>
-        <div className="black-bg" />
-        <div className="red-bg" />
-        <div className="container-fluid">
-          <div className="main-header-wrapper">
-            <div className="logo-image">
-              <NavLink to="/">
-                <img src="assets/img/logo/logo.png" alt="img" />
-              </NavLink>
-            </div>
-            <div className="main-header-items">
-              <div className="header-top-wrapper">
-              <marquee>
-                <h4 className="text-white">
-                Open Every Day! 🍕 Savor the Authentic Flavors of Italy, One Perfect Slice at a Time! 🍕
-                </h4>               
-              </marquee>
-
-                {/* <div className="social-icon d-flex align-items-center">
-                  <span>Follow Us:</span>
-                  <NavLink to="/">
-                    <i className="fab fa-facebook-f" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-twitter" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-youtube" />
-                  </NavLink>
-                  <NavLink to="/">
-                    <i className="fab fa-linkedin-in" />
-                  </NavLink>
-                </div> */}
-              </div>
-
-              <div id="header-sticky" className="header-1">
-                <div className="mega-menu-wrapper">
-                  <div className="header-main">
-                    <div className="logo">
-                      <NavLink to="/" className="header-logo">
-                        <img src="assets/img/logo/logo.png" alt="logo-img" />
-                      </NavLink>
-                    </div>
-                    <div className="header-left">
-                      <div className="mean__menu-wrapper">
-                        <div className="main-menu">
-                          <nav id="mobile-menu" className="d-none d-sm-block">
-                            <ul>
-                              <li className="active menu-thumb">
-                                <NavLink to="/">Home</NavLink>
-                              </li>
-                              <li className="active menu-thumb">
-                                <NavLink to="/aboutus">About Us</NavLink>
-                              </li>
-                              <li className="has-dropdown">
-                                <NavLink to="/">
-                                  Menu
-                                  <i className="fa-regular fa-plus" />
-                                </NavLink>
-                                <ul className="submenu">
-                                  <li>
-                                    <NavLink to="/">Drinks</NavLink>
-                                  </li>
-                                  <li>
-                                    <NavLink to="/">Foods</NavLink>
-                                  </li>
-                                  <li>
-                                    <NavLink to="/">Desserts</NavLink>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li className="active menu-thumb">
-                                <NavLink to="https://www.standard.co.uk/going-out/restaurants/best-pizza-london-top-restaurants-a2945776.html" target="_blank">Blogs</NavLink>
-                              </li>
-                              <li className="active menu-thumb">
-                                <NavLink to="/contactus">Contact Us</NavLink>
-                              </li>
-                            </ul>
-                          </nav>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="header-right d-flex justify-content-end align-items-center">
-                      <NavLink className="theme-btn" to="/">
-                        BOOK NOW
-                        <i className="fa-sharp fa-regular fa-arrow-right" />
-                      </NavLink>
-                      {/* Sidebar Toggle Button */}
-                      <div className="header__hamburger d-block d-sm-none my-auto">
-                        <div
-                          className="sidebar__toggle"
-                          onClick={toggleSidebar}
+        <div className="sticky-wrapper">
+          <div className="container">
+            <div className="menu-area">
+              <div className="row align-items-center justify-content-between">
+                <div className="col-auto">
+                  <div className="header-logo">
+                    <NavLink to="/">
+                      <img src="assets/img/logo.png" alt="Pizza De Valter" />
+                    </NavLink>
+                  </div>
+                </div>
+                <div className="col-auto">
+                  <nav className="main-menu d-none d-lg-inline-block">
+                    <ul>
+                      <li>
+                        <NavLink to="/">Home</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/aboutus">About Us</NavLink>
+                      </li>
+                      <li className="menu-item-has-children">
+                        <NavLink to="#">Menu</NavLink>
+                        <ul className="sub-menu">
+                          <li>
+                            <NavLink to="/foods">Foods</NavLink>
+                          </li>
+                          <li>
+                            <NavLink to="/dirnks">Drinks</NavLink>
+                          </li>
+                          <li>
+                            <NavLink to="/dessert">Desserts</NavLink>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="https://www.standard.co.uk/going-out/restaurants/best-pizza-london-top-restaurants-a2945776.html"
+                          target="_blank"
                         >
-                          <i className="fas fa-bars" />
-                        </div>
-                      </div>
-                    </div>
+                          Blogs
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/contactus">Contact Us</NavLink>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <div className="col-auto">
+                  <div className="header-button">
+                    <NavLink
+                      to="#"
+                      className="th-btn style7"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMenuVisible(true);
+                      }}
+                    >
+                      Book a Table
+                      <i className="fa-solid fa-arrow-right ms-2" />
+                    </NavLink>
+                    <button
+                      type="button"
+                      className="th-menu-toggle d-inline-block d-lg-none"
+                      onClick={toggleMenu}
+                    >
+                      <i className="far fa-bars" />
+                    </button>
                   </div>
                 </div>
               </div>
